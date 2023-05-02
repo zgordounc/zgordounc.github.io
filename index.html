@@ -157,6 +157,16 @@
         We obtained the data used by our NeRF component through LiDAR (Light Detection and Ranging) scans of scenes and objects around UNC. LiDAR scanners typically work by emitting lasers and measuring the time it takes for the beams to bounce back after hitting a surface to create precise 3D point clouds of the environment. Algorithms such as clustering, segmentation, and object recognition are sometimes employed to preprocess the point cloud and remove noise and outliers. 3D models of the environment can then be created with the point clouds using techniques such as surface reconstruction, meshing, or volumetric modeling.
       </p>
   </section>
+  <section>
+    <h2>Project Design</h2>
+    <p>
+      Our project was conducted by leveraging variety of tools and technologies. To collect the LiDAR scans of objects around UNC, we used the 3D scanning application PolyCam hosted on an iPhone 14 Pro with an in-built LiDAR scanner.
+       PolyCam allows users to reconstruct 3D meshes from LiDAR scans, images, camera intrinsic and extrinsic data, as well as depth maps.
+        The application offers a "raw data" export option that enabled us to work with the data in other applications, such as training NeRFs.
+         It was this seamless integration with our NeRF pipeline that initially drew us to use PolyCam. After scanning an object or scene in the application, the camera poses are globally optimized using ARKit before reconstructing the mesh, which makes the optimized camera poses as good as, if not better than, those obtained from an SfM software like COLMAP.
+          This is particularly helpful for complex indoor scenes where SfM pipelines might fail. As a result, the user does not have to worry about drift while scanning and can scan the same area multiple times in a single session.
+    </p>
+  </section>
 
 
 
