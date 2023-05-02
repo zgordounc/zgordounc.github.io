@@ -48,14 +48,6 @@
       text-decoration: underline;
     }
 
-    section {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
-
     .video-container {
       position: relative;
       padding-bottom: 56.25%;
@@ -73,6 +65,27 @@
       left: 0;
       width: 100%;
       height: 100%;
+    }
+
+        /* Image Container */
+    .image-container {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .image-container img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Image Caption */
+    .image-caption {
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
     /* Flexbox styles for side-by-side videos */
@@ -106,6 +119,45 @@
     .customIndent {
       padding-left: 50px;
     }
+    .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: -10px; /* Adjust this value according to the desired gap between items */
+  }
+
+  .row > * {
+    flex: 1;
+    min-width: 300px; /* Adjust this value according to the minimum width you want for each item */
+    box-sizing: border-box;
+    padding: 10px; /* Adjust this value according to the desired gap between items */
+  }
+
+  /* Update the section style */
+  section {
+    flex-grow: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* The rest of your section styles */
+  }
+  .image-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px; /* Adjust this value according to the desired gap between images */
+  }
+
+  .image-row img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
   </style>
 </head>
 <body>
@@ -143,7 +195,10 @@
       </p>
     </section>
     <section>
-      <img src="media/viewer_screenshot.png">
+      <h2>Viewer Screenshot</h2>
+      <div class="image-container">
+        <img src="media/viewer_screenshot.png">
+      </div>
     </section>
   </div>
 
@@ -193,7 +248,7 @@
         <iframe width="560" height="315" src="https://www.youtube.com/embed/iWhc5C56uhI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <p>
-        Replace this text with your description of the capture for Video 1.
+        A simple zoom-in, zoom-out camera path was specified for this rendering. The reflections on the window behind the mask were captured really well. The mask itself and the area between the two pillars are captured in high detail, with very little noise and very few blurry artifacts. However, towards the left and the right side of the pillars and in front of the mask where the camera starts, there seems to be a lot of space with random colored gas-like artifacts, causing high levels of blurriness and discontinuity. The right pillar looks almost deconstructed or broken, and the poster above the mask is blurry and hard to read. Essentially, the render did a really good job of capturing the subject, which in this case was the mask, and otherwise was less detailed than ideal.
       </p>
     </section>
 
@@ -203,19 +258,31 @@
         <iframe width="560" height="315" src="https://www.youtube.com/embed/f3tniUNm6RA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <p>
-        This video rotates arouund the mask. it zooms in around the back of the mask to hide some the worst obfuscations. The pillars and the mask itself definitely create some of the obfuscaitons.
+        The camera path goes around the pillars surrounding the mask from the right to the left, while staying oriented to the mask the entire time. The mask itself is captured in high detail while surrounding objects are not as clear. This is likely due to the fact that our LiDAR scan of the mask was focused mainly on the mask itself, and the surrounding imagery was only captured by the images recorded during scanning. As the camera moves around the mask, we can see how the reflection of the sunlight off of the mask’s forehead and nose is well recreated as the reflections follow the path of the camera’s movement. This property of maintaining observation angle and corresponding real-world light reflections is one of the chief advantages of using NeRF to recreate scenes. The reflections of images in the window behind the mask also display similar accuracy in view-dependent effects. As we move from the right side of the mask to behind the mask, we can see that the trees and foliage in the background have been recorded well in terms of depth and motion-parallax accuracy, but the small details like individual leaves and branches have not been captured as well. Directly behind the mask, there are several floating stick-like unintended artifacts in a row that seem to be made of the same material as the pillars. We surmise that these artifacts are the result of obfuscations. As we come around to the left of the subject, we can see several gas-like artifacts in front of the mask’s face. These were likely created by inconsistencies in data capture as someone walked past during scanning. Close observation of that general area as the camera moves around reveals the distinguishable outline of a person who later moved away, leaving behind unwanted artifacts in the final render. This is a good example of how moving elements in the field of view during data capture can throw off the neural network, leading to blurry or noisy artifacts in the result.
       </p>
     </section>
   </div>
-  <section>
-    <h2>Video 1: Video Title</h2>
-    <div class="video-container">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/KVSzk9zbtzM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-    <p>
-      Replace this text with your description of the capture for Video 1.
-    </p>
-  </section>
+  <div class="video-row">
+    <section>
+      <h2>Student next to the Union</h2>
+      <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/KVSzk9zbtzM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <p>
+        In this scan, there were not many reflective areas. However, the lighting conditions were very unidirectional, and so the angle of shadows and subject lighting remained consistent throughout the render. Throughout the rotation around the subject, Eric remained highly detailed, and it was possible to discern the subject texture at all angles. Motion parallax remained consistent as well, but background objects that were further away were not clearly detailed, such as the bike stands and building wall textures. While we can make out shapes, we cannot make out defined borders on objects. The reflections on the windows of Davis Library (dark red brick building) were captured consistently with the camera angle, as can be seen as the camera rotates around. Surrounding Eric is a lot of noise and general blurriness, most likely caused by the network attempting to resolve inconsistencies with the movement of other individuals around Eric. 
+      </p>
+    </section>
+    <section>
+      <h2>Artifact in View</h2>
+      <div class = 'image-container'>
+          <img src="media/eric.png" alt="Student standing outside the Union" width="560" height="315">
+      </div>
+      <p>
+        Outline of another student can be seen from this novel viewpoint. This artifact points out the inconsistencies of the capture.
+      </p>
+    </section>
+  </div>
+
   <section>
     <h2>Video 1: Video Title</h2>
     <div class="video-container">
