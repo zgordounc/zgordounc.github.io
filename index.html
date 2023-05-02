@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Report Title</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Basic Reset */
     * {
@@ -14,15 +13,15 @@
     }
 
     body {
-      font-family: 'Orbitron', sans-serif;
+      font-family: Arial, sans-serif;
       line-height: 1.6;
-      color: #c5c6c7;
-      background: linear-gradient(135deg, #1f2833 0%, #0b0c10 100%);
+      color: #333;
+      background-color: #f4f4f4;
       padding: 20px;
     }
 
     h1, h2 {
-      color: #66fcf1;
+      color: #444;
     }
 
     h1 {
@@ -41,7 +40,7 @@
     }
 
     a {
-      color: #45a29e;
+      color: #2980b9;
       text-decoration: none;
     }
 
@@ -50,10 +49,10 @@
     }
 
     section {
-      background-color: #1f2833;
+      background-color: #fff;
       padding: 20px;
       border-radius: 5px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
     }
 
@@ -97,10 +96,10 @@
 
     /* Capture description box */
     .capture-description {
-      background-color: #1f2833;
+      background-color: #fff;
       padding: 20px;
       border-radius: 5px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
     }
 
@@ -164,8 +163,7 @@
       Our project was conducted by leveraging variety of tools and technologies. To collect the LiDAR scans of objects around UNC, we used the 3D scanning application PolyCam hosted on an iPhone 14 Pro with an in-built LiDAR scanner.
        PolyCam allows users to reconstruct 3D meshes from LiDAR scans, images, camera intrinsic and extrinsic data, as well as depth maps.
         The application offers a "raw data" export option that enabled us to work with the data in other applications, such as training NeRFs.
-         It was this seamless integration with our NeRF pipeline that initially drew us to use PolyCam. After scanning an object or scene in the application, the camera poses are globally optimized using ARKit before reconstructing the mesh, which makes the optimized camera poses as good as, if not better than, those obtained from an SfM software like COLMAP.
-          This is particularly helpful for complex indoor scenes where SfM pipelines might fail. As a result, the user does not have to worry about drift while scanning and can scan the same area multiple times in a single session.
+         It was this seamless integration with our NeRF pipeline that initially drew us to use PolyCam. After scanning an object or scene in the application, the camera poses are globally optimized using ARKit before reconstructing the mesh, which makes the optimized camera poses as good as, if not better than, those obtained from an SfM software like COLMAP. This is particularly helpful for complex indoor scenes where SfM pipelines might fail. As a result, the user does not have to worry about drift while scanning and can scan the same area multiple times in a single session.
     </p>
   </section>
 
