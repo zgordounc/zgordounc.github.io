@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Report Title</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: #444;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px;
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .video-container iframe,
+    .video-container object,
+    .video-container embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Flexbox styles for side-by-side videos */
+    .video-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 5px; /* Adjust gap between video row and capture description */
+    }
+
+    .video-row section {
+      flex: 0 0 calc(50% - 10px);
+    }
+
+    @media screen and (max-width: 768px) {
+      .video-row section {
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+      }
+    }
+
+    /* Capture description box */
+    .capture-description {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .customIndent {
+      padding-left: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nerf Or Nothin'</h1>
+  <section>
+    <h2>Team Members</h2>
+    <p>
+        <ul class="customIndent">
+            <li>Zachary Gordon</li>
+            <li>Gaurav Rao</li>
+            <li>Eric Yoo</li>
+        </ul>
+    </p>
+  </section>
+
+  <section>
+    <h2>Introduction</h2>
+    <p>
+        Witness the magic of 3D reconstruction as we demonstrate our efforts to bring UNC Chapel Hill's campus to the digital world - because when it comes to showing off the beauty of our campus, it's NeRF or Nothin'!
+         The purpose of this project report is to showcase the application of various computer vision tools and techniques in creating 3D reconstructions of objects around the University of North Carolina at Chapel Hill (UNC Chapel Hill) campus. 
+         With the restrictions of the COVID-19 pandemic close by in our rearview mirror and the difficulty of attending physical campus tours for out-of-state students, the need for virtual alternatives has become more evident.
+          This project aims to validate the possibilities for a virtual medium for "visitations" to the campus through 3D scans, enabling individuals to experience the awe of UNC’s campus wherever they may be.
+           By utilizing a variety of computer vision methodologies, we have created 3D reconstructions of various landmarks on the UNC-Chapel Hill campus.
+           The following report will detail the methods and tools used in this project, demonstrations of our results, and the challenges we encountered.
+    </p>
+  </section>
+  <section>
+    <h2>The Code</h2>
+    <p>
+        We initially attempted to write our own Nerfstudio code and run it locally and on Google Colab.
+         However, we ran into dependency issues. We didn't have access to a local GPU and we could not get the TinyCuda dependencies set up on Google Colab.
+          Luckily Nerfstudio provided a <a href="https://colab.research.google.com/github/nerfstudio-project/nerfstudio/blob/main/colab/demo.ipynb#scrollTo=SiiXJ7K_fePG ", target="_blank">Colab notebook</a> for demonstration purposes.
+           We were able to upload our own Polycam data, train the NeRF and create the camera paths for the video, using this notebook. This was the only way we could get the code to run.        
+    </p>
+  </section>
+  <section>
+    <h2>Background Research</h2>
+    <p>
+        As is evident by the title of our project, we used NeRF, short for "Neural Radiance Fields," to actually create our digital scenes. At a high level, NeRF models a 3D scene as a continuous 5D function that maps 3D spatial coordinates and a viewing direction to a radiance value (i.e., the amount of light emitted or reflected from a surface). This function is represented by a neural network, which is trained on a set of input images and corresponding 3D geometry. The network takes the 3D coordinates and viewing direction as input and produces an output representing the radiance value.
+      </p>
+      <p>
+        The training data is typically obtained by capturing a set of images of a scene from different viewpoints, and the 3D structure of the scene is estimated by using techniques such as structure from motion or multi-view stereo. The neural network is trained to minimize rendering loss, which measures the difference between the predicted radiance values and the ground truth radiance values when the network is used to render an image of the scene from a given viewpoint.
+      </p>
+      <p>
+        To render an image of the scene from a given viewpoint using the trained network, the network is evaluated at a set of sample points along the rays that pass through each pixel in the image. The radiance values predicted by the network at these sample points are integrated along the rays to produce a final pixel value.
+        NeRF has several advantages, such as being able to handle complex lighting and reflectance effects, as well as recreating photo-realistic images of objects and scenes from uncommon viewpoints, which is useful for applications such as virtual reality and visual effects. However, it also requires lots of computational time and space, as a large amount of training data is usually required and image rendering can often be slow.
+      </p>
+      <p>
+        We obtained the data used by our NeRF component through LiDAR (Light Detection and Ranging) scans of scenes and objects around UNC. LiDAR scanners typically work by emitting lasers and measuring the time it takes for the beams to bounce back after hitting a surface to create precise 3D point clouds of the environment. Algorithms such as clustering, segmentation, and object recognition are sometimes employed to preprocess the point cloud and remove noise and outliers. 3D models of the environment can then be created with the point clouds using techniques such as surface reconstruction, meshing, or volumetric modeling.
+      </p>
+  </section>
+
+
+
+  <!-- Video Row - Side by Side Videos -->
+  <section>
+    <h2>Capture 1: Playmakers Mask</h2>
+    <p>
+        This mask is located outside of Playmakers Repriatory Company on Country Club Road. We chose this capture because it is a unique object that is not a building or a statue and represents the variaty of art around campus.
+        Two videos are shown to demonstrate how different renders and novel views can be created from the same capture. We did this by creating different paths in the Nerfstudio viewer.
+        We captured the video by walking around the mask in a circle, pointing the polycam camera at the mask. passes were made both inside and outside the pillars.
+         As you can see both videos have artifacts and blurry spots.
+        Obfuscation is likely the cause of these artifacts. Obfuscation is when areas are hidden from the camera. When this happens the algorithm has a hard time reconstructing the novel view. More detail on the specific artfacts are under the videos.
+    </p>
+  </section>
+  <div class="video-row">
+    <section>
+      <h2>Playmakers Mask Zoom</h2>
+      <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/iWhc5C56uhI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <p>
+        Replace this text with your description of the capture for Video 1.
+      </p>
+    </section>
+
+    <section>
+      <h2>Playmakers Mask Rotation</h2>
+      <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/f3tniUNm6RA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <p>
+        This video rotates arouund the mask. it zooms in around the back of the mask to hide some the worst obfuscations. The pillars and the mask itself definitely create some of the obfuscaitons.
+      </p>
+    </section>
+  </div>
+  <section>
+    <h2>Video 1: Video Title</h2>
+    <div class="video-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/KVSzk9zbtzM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <p>
+      Replace this text with your description of the capture for Video 1.
+    </p>
+  </section>
+  <!-- Add more video rows as needed -->
+  <section>
+    <h2>Challenges and Complications</h2>
+    <p>
+        Our original plan was not to take captures around campus but to construct a video of a coral reef from images taken by marine biologists. However, We could not get the demo notebook, or anything else to work with regular images. We believe this is due to our inability to get COLMAP running in our environment. COLMAP uses structure from motion (SFM) to calculate the camera poses. Since we couldn't get this to work we outsourced the the camera pose calculations to Polycam, which uses lidar to compute the camera poses.
+        Using Polycam meant we couldn't use the coral reef images, since we needed to get our own captures. We decided to pivot to collecting novel captures around campus. Even using polycam we had trouble getting the code to run. At first the viewer, which is used to create the camera paths would not work. At some point during the project the UI changed on the viewer and it worked. We believe that Nerfstudio updated the library, which allowed us to complete the assignment.
+    </p>
+  </section>
+  <section>
+    <h2>Conclusion</h2>
+    <p>
+      Replace this text with your conclusion.
+    </p>
+  </section>
+</body>
+</html>
