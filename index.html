@@ -242,9 +242,10 @@
            It was this seamless integration with our NeRF pipeline that initially drew us to use PolyCam. After scanning an object or scene in the application, the camera poses are globally optimized using ARKit before reconstructing the mesh, which makes the optimized camera poses as good as, if not better than, those obtained from an SfM software like COLMAP. This is particularly helpful for complex indoor scenes where SfM pipelines might fail. As a result, the user does not have to worry about drift while scanning and can scan the same area multiple times in a single session.
       </p>
       <p>
-        We took the PolyCam "raw data" and uploaded it to the Colab notebook linked above. The data is exported as a zip file and Nerfstudio takes the zip file as an argument and extracts all the needed information. The next step is to run the viewer which allows the user to view the 3D render as it is training.
-        While the model is training the user can create camera paths by placing "cameras" around the 3D render in the viewer. When training is complete we exported the camera path and used Nerfstudio to render the video into an MP4 file.
-        We decided to upload the videos to Youtube we could embed them into an HTML page.
+        After collecting the data of a scene or object, the next step was to use Nerfstudio, which has in-built PolyCam data-processing capabilities. Nerfstudio is an open-source library for creating, training, and testing NeRFs. Typically, the NeRF process is very involved and complicated to conduct manually, and at the scale of our project, it would have been extremely difficult. Nerfstudio allowed us to simplify the process by abstracting the steps behind a user interface. After importing the raw data into this program, we were able to train a model and render a 3D scene reconstruction video by specifying a camera position and path. We did this for each subject. All of this was conducted on a Google Colab notebook, as our group members did not have the computational resources to use Nerfstudio in a local setting. Google Colab’s GPU-accelerated capabilities made training the models and rendering the videos much more streamlined of a process than it would have been if we attempted to do the same on our hardware set-up.
+      </p>
+      <p>
+        Our approach for actually shortlisting the objects and scenes to be reconstructed was based on two criteria. We sought to scan and render subjects that held both practical value to individuals learning about UNC and utility in showing off 3D reconstruction in a variety of settings. Firstly, the Old Well was selected as it is perhaps the most prominent UNC landmark, and is located in a relatively unobstructed open space that would allow us to test our scene-building pipeline with, we hoped, few obfuscations. The Mask statue outside of the PlayMakers Repertory Theater was also selected because of its significance as a UNC landmark but allowed us to test reconstruction in a setting with a wall on one side and an open space on the other. We created a scan of our team member Eric by the Student Union to demonstrate a student on campus in an open area with a lot of moving artifacts around him to test the limits of our pipeline, as we also wanted to see what artifacts or unexpected elements could arise in the scene recreations. The student bedroom scene was selected as we wanted to provide insight to students on what a typical off-campus residence could look like, as well as simulate a closed environment with a lot of small but unmoving details. We selected the old computer in Fred Brooks Hall as we wanted to try capturing a single, small, stationary subject that held historical significance in relation to UNC’s accomplishments.
       </p>
     </section>
     <section>
@@ -344,7 +345,7 @@
     </p>
   </section>
   <section>
-    <h2>Capture 3: Really Old Computer</h2>
+    <h2>Capture 4: Really Old Computer</h2>
   </section>
   <section>
     <h2>Fred Brooks Computer</h2>
