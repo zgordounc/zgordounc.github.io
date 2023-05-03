@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Report Title</title>
+  <title>NeRF or Nothin'</title>
   <style>
     /* Basic Reset */
     * {
@@ -158,6 +158,20 @@
     height: auto;
     box-sizing: border-box;
   }
+    /* Image Column */
+    .image-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Adjust this value according to the desired gap between images */
+  }
+
+  .image-column img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
   </style>
 </head>
 <body>
@@ -172,7 +186,14 @@
         </ul>
     </p>
   </section>
-
+  <section>
+    <h3>
+      A few Notes
+    </h3>
+    <p>
+      If you are reading this in the PDF version or the local html version you can also click <a href="https://zgordounc.github.io/">here</a> to see it hosted on github pages. It looks better than the PDF and ensures that none of the media is broken while viewing the report.
+    </p>
+  </section>
   <section>
     <h2>Introduction</h2>
     <p>
@@ -262,6 +283,12 @@
       </p>
     </section>
   </div>
+  <Section>
+    <h2>Capture 2: Student next to the Union</h2>
+    <p>
+      This capture is located outside the student Union. The point of the capture is to demonstrate how well NeRF can recreate humans. It also shows a student in a campus environmnet which supports the idea NeRF can be used for tours.
+    </p>
+  </Section>
   <div class="video-row">
     <section>
       <h2>Student next to the Union</h2>
@@ -284,37 +311,61 @@
   </div>
 
   <section>
-    <h2>Video 1: Video Title</h2>
+    <h2>Student Apartment</h2>
     <div class="video-container">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/lGs2yGdR6Xg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     <p>
-      Replace this text with your description of the capture for Video 1.
+      The subject and lower regions of this capture are recorded in relatively very high detail, as we can make out the textures on the floor, sofas, flowers, and many other objects in the scene. The transparency of the windows and coffee table is also captured really well, as is the reflection of the outdoor light on the coffee table at the center of the scene. The background gets blurrier as the camera swivels around to face the opposite direction that it started in, likely because there were moving individuals in the background in that direction as the scan was taking place. This is a good example of how moving elements during data capture can mess up the final render, as we can directly contrast the blurry areas in front of the TV and kitchen to the crisp, detailed areas by the windows and sofas where there were no moving elements during scanning. One thing that is evident throughout the video is the existence of lots of noise and random artifacts toward the top of the scene. We are unsure exactly how this was created, but one theory we had was that the properties of the transparent glass coffee table may have interfered with the LiDAR scanner by causing the LiDAR rays to not reflect as intended, or to reflect off of the surface in unintended ways.
     </p>
   </section>
   <section>
-    <h2>Video 1: Video Title</h2>
+    <h2>Fred Brooks Computer</h2>
     <div class="video-container">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/1Q9Kbq1uyMc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     <p>
-      Replace this text with your description of the capture for Video 1.
+      This is a pretty simple scene capture, as the camera simply moves from down to up while staying focused on a central point on the computer. What this capture did really well was to portray the depth of the computer components through a reflective glass pane. We can see the computer internals in relatively good detail, while still being able to make out the existence of trees behind the camera in the reflection of the glass pane. However, likely due to this reflectivity, we can see many stray artifacts around the camera’s path that are similar in color to the reflected trees. Other than these artifacts, there are almost no other instances of unintended elements in the scene rendering, likely owing to the fact that there were no moving elements in the scene during scanning. This shows us that in a controlled environment with minimal moving parts, it is possible to get near-perfect scene recreations with very few unintended artifacts. If not for the reflection-based artifacts in this scene, we may have been able to create a rendering with almost no stray artifacts. Such an observation could guide future scans and NeRF endeavors.
     </p>
+
+    
   </section>
 
   <!-- Add more video rows as needed -->
   <section>
     <h2>Challenges and Complications</h2>
     <p>
-        Our original plan was not to take captures around campus but to construct a video of a coral reef from images taken by marine biologists. However, We could not get the demo notebook, or anything else to work with regular images. We believe this is due to our inability to get COLMAP running in our environment. COLMAP uses structure from motion (SFM) to calculate the camera poses. Since we couldn't get this to work we outsourced the the camera pose calculations to Polycam, which uses lidar to compute the camera poses.
-        Using Polycam meant we couldn't use the coral reef images, since we needed to get our own captures. We decided to pivot to collecting novel captures around campus. Even using polycam we had trouble getting the code to run. At first the viewer, which is used to create the camera paths would not work. At some point during the project the UI changed on the viewer and it worked. We believe that Nerfstudio updated the library, which allowed us to complete the assignment.
+      One of the first challenges we ran into was figuring out how to use Nerfstudio. Due to the massive computational power required, we needed to find a way to carry out the pipeline on a system that could handle it. Since none of our group members had a computer with a GPU powerful enough to do this, we searched for alternative strategies and eventually settled upon using the Nerfstudio-created Google Colab notebook. This seemed to work fine for our purposes. 
     </p>
+    <p>
+      Initially, our project focus was to use NeRF to construct manipulable 3D scenes of several types of coral specimens for future use in marine science research endeavors, but we ran into several roadblocks along the way. For context, we were given a large image bank containing many pictures of each type of coral from a multitude of angles, covering all necessary viewpoints and perspectives. Using these images, our next step would have been to perform camera calibration to estimate the intrinsic and extrinsic parameters of the camera used to capture the images (including camera poses and focal length), generate depth maps for each image using structure from motion or another stereo reconstruction algorithm, and create 2D-3D correspondences before the data was ready to be used in training the neural network in Nerfstudio.
+    </p>
+    <p>
+      However, we ran into complications trying to get the demo notebook or anything else to work with regular images. We believe this is due to our inability to get COLMAP running in our environment. COLMAP uses structure from motion (SFM) to calculate the camera poses. At this point, we briefly attempted to locally build our own NeRF pipeline independent of Nerfstudio. However, this quickly proved difficult. Since we couldn't get this to work we outsourced the camera pose calculations to PolyCam, which uses LiDAR to compute the camera poses. Using Polycam meant we couldn't use the coral reef images, since we needed to get our own captures.
+    </p>
+    <p>
+      We decided to pivot to the current approach of collecting novel captures from around campus. Yet even using PolyCam we had trouble getting the code to run. At first, the Nerfstudio viewer, which is used to create the camera paths, would suddenly disconnect the rendering process. At some point during the project timeline, the viewer UI changed and we were able to get a few successful video renders without too many changes on our end. We believe that Nerfstudio updated the library, which allowed us to complete the task. Unfortunately, the code stopped working again towards the end of the project. This meant we could not render all of our captures, including that of the Old Well. We have attached the data of all our captures, including the ones that we could not fully render, to this project. Having access to a powerful local GPU would have mitigated many of the challenges that we faced, due to the ease and increased control over the process on our own devices.
+    </p>
+    <div class="image-row">
+      <img src="media/broken_viewer.png">
+      <div class = image-column>
+        <img src="media/coral_1.jpg" width = 320 height="320">
+        <img src="media/coral_2.jpg" width = 320 height = '320'>
+      </div>
+    </div>
   </section>
   <section>
-    <h2>Conclusion</h2>
+    <h2>Implications and Future Study</h2>
     <p>
-      Replace this text with your conclusion.
+      As evidenced by our project, the proof of concept exists for virtually recreating real-world scenes using NeRF across a variety of settings, and there are important implications for student engagement and accessibility. By creating a virtual format to experience UNC’s landmarks and lifestyles, we are providing an innovative and accessible way for students to connect with their campus environment, regardless of physical proximity or mobility restrictions. This project also has the potential to enhance recruitment and marketing efforts by showcasing the noteworthy aspects of UNC-Chapel Hill to prospective students who may be on the fence about applying or planning a visit to campus. While the results we obtained are not flawless, further adjustments and better data-collection strategies in more controlled environments could certainly produce market-worthy video renders. 
     </p>
+    <p>
+      Overall, our project demonstrated that NeRF can be used to leverage the power of virtual technology to create meaningful and engaging experiences, with implications for education, tourism, and beyond. Museums, libraries, and other settings of academic interest could create detailed virtual guided tours to share knowledge with a wider audience. Tourist attractions could create short previews of the experiences they offer to share as marketing material, or could even create detailed virtual environments for paying customers to experience from afar. All of this could be done on a relatively low budget, as we have demonstrated in our project that the backend technology is easily available through open-source means and the data collection can be conducted with just an iPhone.
+    </p>
+    <p>
+      Some things we could have done differently are taking more captures in a greater variety of settings, such as during the night time or in dimly-lit rooms. This would allow us to test the neural network under more unusual situations so that we could report on the outcomes or any issues that would arise in novel contexts. We could also have sourced a more powerful computer for the term of this project to run our code locally so that we could have more control over the specifics. Some things that we could do to expand our own project going forward include taking captures at a larger scale, such as that of an entire building exterior and interior, allowing us to do a walk-through of the building. This may have required better scanning systems as we would need to ensure proper detail capture at an enormous scale, but with the right resources it would be possible. We also could expand our data collection to areas outside of UNC to demonstrate the power of NeRF to new audiences or could partner up with firms such as real-estate and architecture agencies to recreate building interiors and showcase the practical value of our project.
+    </p>
+    
   </section>
 </body>
 </html>
