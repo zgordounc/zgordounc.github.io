@@ -205,7 +205,6 @@
            The following report will detail the methods and tools used in this project, demonstrations of our results, and the challenges we encountered.
     </p>
   </section>
-  <div class="video-row">
     <section>
       <h2>The Code</h2>
       <p>
@@ -215,13 +214,7 @@
              We were able to upload our own Polycam data, train the NeRF and create the camera paths for the video, using this notebook. This was the only way we could get the code to run.        
       </p>
     </section>
-    <section>
-      <h2>Viewer Screenshot</h2>
-      <div class="image-container">
-        <img src="media/viewer_screenshot.png">
-      </div>
-    </section>
-  </div>
+
 
   <section>
     <h2>Background Research</h2>
@@ -239,15 +232,29 @@
         We obtained the data used by our NeRF component through LiDAR (Light Detection and Ranging) scans of scenes and objects around UNC. LiDAR scanners typically work by emitting lasers and measuring the time it takes for the beams to bounce back after hitting a surface to create precise 3D point clouds of the environment. Algorithms such as clustering, segmentation, and object recognition are sometimes employed to preprocess the point cloud and remove noise and outliers. 3D models of the environment can then be created with the point clouds using techniques such as surface reconstruction, meshing, or volumetric modeling.
       </p>
   </section>
-  <section>
-    <h2>Project Design</h2>
-    <p>
-      Our project was conducted by leveraging variety of tools and technologies. To collect the LiDAR scans of objects around UNC, we used the 3D scanning application PolyCam hosted on an iPhone 14 Pro with an in-built LiDAR scanner.
-       PolyCam allows users to reconstruct 3D meshes from LiDAR scans, images, camera intrinsic and extrinsic data, as well as depth maps.
-        The application offers a "raw data" export option that enabled us to work with the data in other applications, such as training NeRFs.
-         It was this seamless integration with our NeRF pipeline that initially drew us to use PolyCam. After scanning an object or scene in the application, the camera poses are globally optimized using ARKit before reconstructing the mesh, which makes the optimized camera poses as good as, if not better than, those obtained from an SfM software like COLMAP. This is particularly helpful for complex indoor scenes where SfM pipelines might fail. As a result, the user does not have to worry about drift while scanning and can scan the same area multiple times in a single session.
-    </p>
-  </section>
+  <div class="video-row">
+    <section>
+      <h2>Project Design</h2>
+      <p>
+        Our project was conducted by leveraging variety of tools and technologies. To collect the LiDAR scans of objects around UNC, we used the 3D scanning application PolyCam hosted on an iPhone 14 Pro with an in-built LiDAR scanner.
+         PolyCam allows users to reconstruct 3D meshes from LiDAR scans, images, camera intrinsic and extrinsic data, as well as depth maps.
+          The application offers a "raw data" export option that enabled us to work with the data in other applications, such as training NeRFs.
+           It was this seamless integration with our NeRF pipeline that initially drew us to use PolyCam. After scanning an object or scene in the application, the camera poses are globally optimized using ARKit before reconstructing the mesh, which makes the optimized camera poses as good as, if not better than, those obtained from an SfM software like COLMAP. This is particularly helpful for complex indoor scenes where SfM pipelines might fail. As a result, the user does not have to worry about drift while scanning and can scan the same area multiple times in a single session.
+      </p>
+      <p>
+        We took the PolyCam "raw data" and uploaded it to the Colab notebook linked above. The data is exported as a zip file and Nerfstudio takes the zip file as an argument and extracts all the needed information. The next step is to run the viewer which allows the user to view the 3D render as it is training.
+        While the model is training the user can create camera paths by placing "cameras" around the 3D render in the viewer. When training is complete we exported the camera path and used Nerfstudio to render the video into an MP4 file.
+        We decided to upload the videos to Youtube we could embed them into an HTML page.
+      </p>
+    </section>
+    <section>
+      <h2>Viewer Screenshot</h2>
+      <div class="image-container">
+        <img src="media/viewer_screenshot.png">
+      </div>
+    </section>
+  </div>
+
 
 
 
@@ -283,6 +290,18 @@
       </p>
     </section>
   </div>
+  <section>
+    <h2>Polycam Captures of the Playmakers Mask</h2>
+    <p>
+      We wanted to show the captures we used to create the videos. Here are screenshots of PolyCam's 3D renders from different views.
+    </p>
+    <div class = 'image-row'>
+      <img src = 'media/mask_front.jpg' width = 250 height="663">
+      <img src = 'media/mask_back.jpg' width = 250 height="663">
+      <img src = 'media/mask_right.jpg' width = 250 height="663">
+      <img src = 'media/mask_left.jpg' width = 250 height="663">
+    </div>
+  </section>
   <Section>
     <h2>Capture 2: Student next to the Union</h2>
     <p>
@@ -309,7 +328,12 @@
       </p>
     </section>
   </div>
-
+  <section>
+    <h2>Capture 3: Student Apartment</h2>
+    <p>
+      This capture is located in a student apartment. The point of the capture is to demonstrate how well NeRF can recreate indoor environments. It also shows a student in a campus environmnet which supports the idea NeRF can be used for tours.
+    </p>
+  </section>
   <section>
     <h2>Student Apartment</h2>
     <div class="video-container">
@@ -318,6 +342,9 @@
     <p>
       The subject and lower regions of this capture are recorded in relatively very high detail, as we can make out the textures on the floor, sofas, flowers, and many other objects in the scene. The transparency of the windows and coffee table is also captured really well, as is the reflection of the outdoor light on the coffee table at the center of the scene. The background gets blurrier as the camera swivels around to face the opposite direction that it started in, likely because there were moving individuals in the background in that direction as the scan was taking place. This is a good example of how moving elements during data capture can mess up the final render, as we can directly contrast the blurry areas in front of the TV and kitchen to the crisp, detailed areas by the windows and sofas where there were no moving elements during scanning. One thing that is evident throughout the video is the existence of lots of noise and random artifacts toward the top of the scene. We are unsure exactly how this was created, but one theory we had was that the properties of the transparent glass coffee table may have interfered with the LiDAR scanner by causing the LiDAR rays to not reflect as intended, or to reflect off of the surface in unintended ways.
     </p>
+  </section>
+  <section>
+    <h2>Capture 3: Really Old Computer</h2>
   </section>
   <section>
     <h2>Fred Brooks Computer</h2>
@@ -353,6 +380,17 @@
         <img src="media/coral_2.jpg" width = 320 height = '320'>
       </div>
     </div>
+  </section>
+  <section>
+    <h2>Additional PolyCam captures</h2>
+    <p>
+      Since we were unable to render all of our captures due to the code breaking, we wanted to include some of the PolyCam captures of the Old Well and the announcement board. We were really excited for these.
+    </p>
+    <div class="image-row">
+      <img src="media/well_1.jpg" width = 250 height="663">
+      <img src="media/well_2.jpg" width = 250 height = '663'>
+      <img src="media/panels_front.jpg" width = 250 height="663">
+      <img src="media/panels_back.jpg" width = 250 height = '663'>
   </section>
   <section>
     <h2>Implications and Future Study</h2>
